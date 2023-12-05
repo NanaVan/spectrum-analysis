@@ -136,7 +136,8 @@ def psd_multitaper(bud, offset, window_length, padding_ratio=0, NW=3, Kmax=4):
     signal = bud.load(window_length, offset)[1] * window_sequence
     eigpsd = np.fft.fftshift(fft(signal))
     psd = np.mean(np.absolute(eigpsd)**2, axis=0) / bud.sampling_rate
-    return frequencies, psd, n_dof
+    return frequencies, psd, n_dof # Hz, V^2/Hz, V^2/Hz, 1
+
 
 def psd_adaptive_multitaper(bud, offset, window_length, padding_ratio=0, NW=3, Kmax=4):
     '''
@@ -174,6 +175,7 @@ def psd_adaptive_multitaper(bud, offset, window_length, padding_ratio=0, NW=3, K
         psd = psd_temp
     # number of degrees of freedom
     n_dof = 2 * np.sum(weight, axis=0)**2 / np.sum(weight**2, axis=0)
-    return frequencies, psd, n_dof
+    return frequencies, psd, n_dof # Hz, V^2/Hz, V^2/Hz, 1
+
 
 
